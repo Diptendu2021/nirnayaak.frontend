@@ -4,7 +4,7 @@ import { queryClient } from "../AppRoutes";
 export const API_URL = process.env.REACT_APP_API_BASE_URL
 
 const api: AxiosInstance = axios.create({
-    baseURL : API_URL,
+    baseURL : "http://52.66.201.34:3000/",
 })
 
 export function authHeader() : object {

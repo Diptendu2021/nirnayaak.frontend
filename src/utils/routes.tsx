@@ -5,10 +5,10 @@ import Search from "../pages/Search/Search";
 import User from "../pages/User/User";
 
 const routes : RouteObject[] = [
-    // {
-    //     path: "/",
-    //     element : <Main />
-    // },
+    {
+        path: "/user",
+        element : <User />
+    },
     // {
     //     path: "/",
     //     element : <Authentication />

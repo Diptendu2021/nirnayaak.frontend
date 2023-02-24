@@ -3,7 +3,12 @@ import styles from "./register.module.scss";
 import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, Upload } from "antd";
 
+
+
 const Register = () => {
+
+
+
   const onFinish = (values: any) => {
     console.log("Success:", values);
   };

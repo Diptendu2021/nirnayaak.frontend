@@ -2,6 +2,7 @@ import { AxiosError } from "axios";
 import { IconContext } from "react-icons";
 import { MutationCache , QueryClient ,QueryClientProvider} from "@tanstack/react-query";
 import { message } from "antd";
+import "./App.css"
 
 // import { MutationCache, QueryClient } from "react-query";
 // import { QueryClientProvider } from "react-query/types/react";

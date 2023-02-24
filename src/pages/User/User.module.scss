@@ -1,0 +1,11 @@
+
+.parentContainer{
+    height: calc(100vh - 3rem);
+
+    :global(#rc-tabs-1-panel-1){
+   height: 100%;
+  }
+}
+
+
+  

@@ -1,10 +1,29 @@
 import React from "react";
 import styles from "./Login.module.scss";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input, message } from "antd";
+import { useLoginQuery } from "../../api/userService";
 
-const Login = () => {
+type loginprops = {
+  state : any
+}
+
+const Login = ({state} : loginprops) => {
+  
+  const loginUser = useLoginQuery()
+
   const onFinish = (values: any) => {
-    console.log("Success:", values);
+    loginUser.mutateAsync({
+      ...values
+    }, {
+      onSuccess(res){
+        message.success("Sucessfully Logged in")
+      },
+      onError(res) {
+        console.log(res);
+        
+        message.error("Use Valid Credentials")
+      }
+    })
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -32,10 +51,10 @@ const Login = () => {
           autoComplete="off"
         >
           <Form.Item
-            label="Username"
-            name="username"
+            label="Email"
+            name="email"
             labelAlign="left"
-            rules={[{ required: true, message: "Please input your username!" }]}
+            rules={[{type : "email"},{ required: true, message: "Please input your username!" }]}
           >
             <Input />
           </Form.Item>
@@ -57,7 +76,9 @@ const Login = () => {
         </Form>
       </div>
       <p>
-        don't have an account? <span style={{color : "rgb(125, 189, 246)"}}>
+        don't have an account? <span onClick={() => {
+          state("Register")
+        }} style={{color : "rgb(125, 189, 246)"}}>
           Register Here
         </span>
       </p>

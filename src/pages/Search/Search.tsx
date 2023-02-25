@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Search.module.scss";
 import { RxCross2 } from "react-icons/rx";
 import { Draggable, DragDropContext, Droppable } from "react-beautiful-dnd";
-import { IoIosAdd } from "react-icons/io";
+import { IoIosAdd, IoIosOptions } from "react-icons/io";
 import { FetchSearchQuery } from "../../api/Search";
 import SearchResults from "../../components/SearchResults/SearchResults";
 import ResultCard from "../../components/ResultCard/ResultCard";
@@ -16,7 +16,7 @@ const Search = () => {
   const [tagsList, setTagsList] = React.useState<tag[]>([]);
   const [newTag, setnewTag] = React.useState("");
   const [searchData, setSearchData] = React.useState([]);
-  const [firstSearch , setFirstSearch] = React.useState(true)
+  const [firstSearch, setFirstSearch] = React.useState(true);
   const fetchResult = FetchSearchQuery();
 
   const handleSearch = () => {
@@ -36,6 +36,7 @@ const Search = () => {
         const docsData = data?.data?.docs;
 
         setSearchData(docsData);
+        setFirstSearch(false)
 
         // setSearchData(data?.data?.docs)
         // console.log(searchData);
@@ -57,12 +58,14 @@ const Search = () => {
     setTagsList(newList);
   };
 
-  const handleAddTags = () => {
-    const newList = Array.from(tagsList);
-    if (newTag !== "") {
-      newList.push({ tagName: newTag, id: newTag });
-      setTagsList(newList);
-      setnewTag("");
+  const handleAddTags = (event: any) => {
+    if (event.key === "Enter") {
+      const newList = Array.from(tagsList);
+      if (newTag !== "") {
+        newList.push({ tagName: newTag, id: newTag });
+        setTagsList(newList);
+        setnewTag("");
+      }
     }
   };
 
@@ -85,23 +88,25 @@ const Search = () => {
                 value={newTag}
                 className={styles.input_field}
                 placeholder="Search Tags"
+                onKeyDown={handleAddTags}
               ></input>
-              <IoIosAdd
-              title="Add Tags"
-                onClick={() => {
-                  handleAddTags();
-                }}
+              <IoIosOptions
+                title="Advance Search Options"
+                // onClick={() => {
+                //   handleAddTags();
+                // }}
                 style={{
                   backgroundColor: "rgb(220, 220, 220)",
-                  fontSize: "1.5rem",
+                  fontSize: "1.2rem",
                   borderRadius: "25px",
-                  padding: "0.5rem",
+                  padding: "0.7rem",
                   color: "blue",
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
               />
             </div>
             <button
+              disabled={tagsList.length === 0 ? true : false}
               className={`${styles.button} button`}
               onClick={() => handleSearch()}
             >
@@ -134,7 +139,6 @@ const Search = () => {
                             >
                               <span>{tag.tagName}</span>
                               <RxCross2
-                              
                                 onClick={() => {
                                   handleDelete(index);
                                 }}
@@ -142,7 +146,6 @@ const Search = () => {
                                   backgroundColor: "#a0bcfd",
                                   borderRadius: "25px",
                                   padding: "1px",
-                                  
                                 }}
                               />
                             </div>
@@ -157,19 +160,31 @@ const Search = () => {
             </DragDropContext>
           </div>
         </div>
-        <div className={styles.results_container}>
+        {firstSearch ? (
+          <div className={styles.results_container}>information</div>
+        ) :
+        searchData.length === 0 ? (
+          
+          <div className={styles.results_container}>
+            oops no data
+          </div>
+        ):
+        (
+          
+          <div className={styles.results_container}>
+            <h3>Your Searches</h3>
+
+            <div className={styles.results}>
+              {searchData.map((data, index) => {
+                return <ResultCard key={index} data={data} />;
+              })}
+            </div>
+          </div>
+        )}
+        {/* <div className={styles.results_container}>
          
           <h3>Your Searches</h3>
-          {/* {
-            searchData.length === 0 ? 
-            <div> no data <div/>
-            :
-            (
-              <>
-              
-              </>
-            )
-          } */}
+    
           <div className={styles.results}>
                   {
                   searchData.map((data , index) => {
@@ -182,7 +197,7 @@ const Search = () => {
           
           
           
-        </div>
+        </div> */}
       </div>
     </div>
   );

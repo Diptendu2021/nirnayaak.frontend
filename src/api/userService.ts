@@ -12,10 +12,12 @@ import api, { authHeader } from "./index";
 
 export function useLoginQuery() {
     const navigate = useNavigate();
-    return useMutation((data: any) => api.post("/auth/login", data, { withCredentials: true }), {
+    return useMutation((data: any) => api.post("/login", data), {
       onSuccess: (res: AxiosResponse) => {
-        localStorage.setItem("token", res.data.result.accessToken);
-        navigate("/dashboard");
+        console.log(res);
+        
+        localStorage.setItem("Logged in", "true");
+        navigate("/");
         // setShow("setup");
       },
     });
@@ -31,9 +33,9 @@ export function useLoginQuery() {
       mutate: handleRegister,
     } = useMutation((registerData: any) => api.post("/register", registerData), {
       onSuccess: (res) => {
-        // localStorage.setItem("email", res.data.result.user.email);
-        // navigate("/verification");
-        console.log("register" , );
+        localStorage.setItem("Logged in", "true");
+        navigate("/");
+        
         
       },
       onError: (err: any) => {

@@ -80,6 +80,11 @@
           font-weight: 500;
           color: whitesmoke;
           cursor: pointer;
+
+          &:hover{
+            background-color: $primary;
+            opacity: 0.9;
+          }
         }
       }
       .tag_container {

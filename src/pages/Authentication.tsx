@@ -3,6 +3,7 @@ import Login from '../components/Authentication/Login'
 import Register from '../components/Register/Register'
 
 const Authentication = () => {
+  const [showState, setShowState] = React.useState("Register")
   return (
     <div style={{
       display :"flex",
@@ -11,8 +12,16 @@ const Authentication = () => {
       boxSizing :"border-box",
       padding: "0 4rem"
     }}>
-        <Login />
-        {/* <Register /> */}
+
+      {
+        showState === "Register" ? 
+        (<Register state = {setShowState} />):
+        (
+          <Login state = {setShowState}  />
+        )
+      }
+        {/* <Login /> */}
+         
 
         <img style={{
           height:"700px"

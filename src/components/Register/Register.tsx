@@ -4,17 +4,20 @@ import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, Upload } from "antd";
 import { useRegisterUser } from "../../api/userService";
 
-const Register = () => {
+type registerProps = {
+  state: any;
+};
 
-  const { isLoading, isSuccess, isError, error, handleRegister } = useRegisterUser();
+const Register = ({ state }: registerProps) => {
+  const { isLoading, isSuccess, isError, error, handleRegister } =
+    useRegisterUser();
 
   const onFinish = (values: any) => {
     console.log(values);
-    
+
     handleRegister({
       ...values,
-     
-    })
+    });
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -133,7 +136,12 @@ const Register = () => {
       </div>
       <p>
         don't have an account?{" "}
-        <span style={{ color: "rgb(125, 189, 246)" }}>
+        <span
+          onClick={() => {
+            state("Login");
+          }}
+          style={{ color: "rgb(125, 189, 246)" }}
+        >
           Login
           {/* need change state to login */}
         </span>

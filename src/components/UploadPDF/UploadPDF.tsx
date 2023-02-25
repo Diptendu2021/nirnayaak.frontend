@@ -1,8 +1,18 @@
 import React from "react";
 import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input, Upload } from "antd";
+import {
+  Button,
+  Checkbox,
+  Form,
+  Input,
+  message,
+  Upload,
+  UploadProps,
+} from "antd";
 
 import styles from "./UploadPDF.module.scss";
+import Dragger from "antd/es/upload/Dragger";
+import { FetchSearchQuery } from "../../api/upload";
 
 const submitType = {
   upload: "upload",
@@ -13,112 +23,94 @@ const UploadPDF = () => {
   const [documentState, setDocumentState] = React.useState(submitType.upload);
   const [preProcessLoading, setPreProcessLoading] = React.useState(false);
 
+  const [documentId, setdocumentId] = React.useState("");
+
+  const preprocessquery = FetchSearchQuery();
+
   const onFinish = (values: any) => {
     console.log("Success:", values);
   };
 
   const preProcess = () => {
-    console.log("preprocessing");
-    
-  }
-
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
+    preprocessquery.mutateAsync(documentId, {
+      onSuccess(response) {
+        message.success(`file Processed successfully.`);
+      },
+      onError(response) {
+        message.error(`Failed processing file.`);
+      },
+    });
   };
 
-  const normFile = (e: any) => {
-    console.log("Upload event:", e);
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e?.fileList;
+  // const onFinishFailed = (errorInfo: any) => {
+  //   message.error(`Enter Required Credentials`);
+  // };
+
+  // const normFile = (e: any) => {
+  //   console.log("Upload event:", e);
+  //   if (Array.isArray(e)) {
+  //     return e;
+  //   }
+  //   return e?.fileList;
+  // };
+
+  const props: UploadProps = {
+    name: "user_file",
+    multiple: true,
+    action: "https://ml-backend.nirnayaak.co/upload",
+    onChange(info) {
+      console.log(info);
+
+      const { status, response } = info.file;
+      if (status !== "uploading") {
+        console.log(response);
+        setdocumentId(response?.documentID);
+      }
+      if (status === "done") {
+        message.success(`${info.file.name} file uploaded successfully.`);
+      } else if (status === "error") {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+
+    // onSuccess(res: any, file: any) {
+    //   console.log("onSuccess", res, file.name);
+
+    // },
+    onDrop(e) {
+      console.log("Dropped files", e.dataTransfer.files);
+    },
   };
 
   return (
     <div className={styles.parentContainer}>
-      <Form
-        name="basic"
-        labelCol={{ span: 5 }}
-        wrapperCol={{ span: 16 }}
+      <Dragger {...props}>
+        <p className="ant-upload-drag-icon">
+          <InboxOutlined />
+        </p>
+        <p className="ant-upload-text">
+          Click or drag file to this area to upload
+        </p>
+        <p className="ant-upload-hint">Support for a single or bulk upload</p>
+      </Dragger>
+      <Button
+        block
+        type="primary"
+        loading={preprocessquery.isLoading}
         style={{
-          width: "500px",
-          height: "calc(100vh - 6rem)",
-          marginLeft: "0",
-          justifyContent: "center",
-          alignItems: "center",
-          display: "flex",
-          flexDirection: "column",
+          width: "300px",
+          margin: "1rem 0rem",
+          backgroundColor:
+            documentState === submitType.preprocess ? "green" : "",
+          color: documentState === submitType.preprocess ? "white" : "",
         }}
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
-        layout="vertical"
+        disabled={documentId !== "" ? false : true}
+        onClick={() => {
+          preProcess();
+        }}
       >
-        <Form.Item
-          name="dragger"
-          valuePropName="fileList"
-          getValueFromEvent={normFile}
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Upload.Dragger
-            name="files"
-            action="/upload.do"
-            style={{ width: "500px" }}
-          >
-            <p className="ant-upload-drag-icon">
-              <InboxOutlined />
-            </p>
-            <p className="ant-upload-text">
-              Click or drag file to this area to upload
-            </p>
-            <p className="ant-upload-hint">
-              Support for a single or bulk upload.
-            </p>
-          </Upload.Dragger>
-        </Form.Item>
-
-        <Form.Item
-          wrapperCol={{ offset:4, span: 16 }}
-          style={{
-            width: "100%",
-           
-          }}
-        >
-          <Button
-           
-            type="primary"
-            block
-            disabled={documentState === submitType.upload ? false : true}
-            htmlType="submit"
-          >
-            Upload
-          </Button>
-        </Form.Item>
-
-        <Form.Item style={{
-            width: "100%",
-           
-          }} wrapperCol={{ offset: 4, span: 16 }}>
-          <Button
-          block
-            type="primary"
-            loading={preProcessLoading}
-            style={{
-              backgroundColor:
-                documentState === submitType.preprocess ? "green" : "",
-              color: documentState === submitType.preprocess ? "white" : "",
-            }}
-            disabled={documentState === submitType.preprocess ? false : true}
-          >
-            Preprocess
-          </Button>
-        </Form.Item>
-      </Form>
+        {preprocessquery.isLoading ? "Lawyering Up" : "Process My Document"}
+      </Button>
     </div>
   );
 };

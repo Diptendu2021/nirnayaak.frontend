@@ -8,7 +8,7 @@ const api: AxiosInstance = axios.create({
 })
 
 export const apiML: AxiosInstance = axios.create({
-  baseURL : "http://52.66.201.34:3000/",
+  baseURL : "https://ml-backend.nirnayaak.co/",
 })
 
 export function authHeader() : object {

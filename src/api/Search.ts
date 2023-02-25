@@ -11,3 +11,15 @@ export const FetchSearchQuery = () => {
     return apiML.post("/search", data);
   });
 };
+
+
+export const AutomaticQuery = () => {
+  return useMutation((tags: string[]) => {
+
+    const data = {
+      search_key : tags
+    }
+
+    return apiML.post("/search", data);
+  });
+};

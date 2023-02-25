@@ -11,37 +11,34 @@ import api, { authHeader } from "./index";
 // };
 
 export function useLoginQuery() {
-    const navigate = useNavigate();
-    return useMutation((data: any) => api.post("/login", data), {
-      onSuccess: (res: AxiosResponse) => {
-        console.log(res);
-        
-        localStorage.setItem("Logged in", "true");
-        navigate("/");
-        // setShow("setup");
-      },
-    });
-  }
+  const navigate = useNavigate();
+  return useMutation((data: any) => api.post("/login", data), {
+    onSuccess: (res: AxiosResponse) => {
+      console.log(res);
 
-  export function useRegisterUser() {
-    const [error, setError] = useState("");
-    const navigate = useNavigate();
-    const {
-      isLoading,
-      isSuccess,
-      isError,
-      mutate: handleRegister,
-    } = useMutation((registerData: any) => api.post("/register", registerData), {
-      onSuccess: (res) => {
-        localStorage.setItem("Logged in", "true");
-        navigate("/");
-        
-        
-      },
-      onError: (err: any) => {
-        setError(err.response.data.message);
-      },
-    });
-    return { isLoading, isSuccess, isError, error, handleRegister };
-  }
-  
+      localStorage.setItem("LicenseKey", res.data?.licenseID);
+      navigate("/user");
+      // setShow("setup");
+    },
+  });
+}
+
+export function useRegisterUser() {
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const {
+    isLoading,
+    isSuccess,
+    isError,
+    mutate: handleRegister,
+  } = useMutation((registerData: any) => api.post("/register", registerData), {
+    onSuccess: (res) => {
+      localStorage.setItem("LicenseKey", res.data?.licenseID);
+      navigate("/user");
+    },
+    onError: (err: any) => {
+      setError(err.response.data.message);
+    },
+  });
+  return { isLoading, isSuccess, isError, error, handleRegister };
+}

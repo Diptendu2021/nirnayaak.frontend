@@ -3,31 +3,15 @@ import styles from "./Search.module.scss";
 import { RxCross2 } from "react-icons/rx";
 import { Draggable, DragDropContext, Droppable } from "react-beautiful-dnd";
 import { IoIosAdd, IoIosOptions } from "react-icons/io";
-import { FetchSearchQuery , AutoCompleteQuery } from "../../api/Search";
+import { FetchSearchQuery, AutoCompleteQuery } from "../../api/Search";
 import SearchResults from "../../components/SearchResults/SearchResults";
 import ResultCard from "../../components/ResultCard/ResultCard";
-import { AutoComplete } from 'antd';
+import { AutoComplete } from "antd";
 
 type tag = {
   tagName: string;
   id: string;
 };
-
-const options : { label: string; value: string; }[] = [
-  {
-    label: "medical",
-    value: "medical"
-  },
-  {
-    label: "marraige",
-    value: "marraige"
-  },
-  {
-    label: "section-48",
-    value: "section-48"
-  },
-  
-]
 
 const Search = () => {
   const [tagsList, setTagsList] = React.useState<tag[]>([]);
@@ -35,7 +19,7 @@ const Search = () => {
   const [searchData, setSearchData] = React.useState([]);
   const [firstSearch, setFirstSearch] = React.useState(true);
   const fetchResult = FetchSearchQuery();
-  const getautoComplete = AutoCompleteQuery()
+  const getautoComplete = AutoCompleteQuery();
 
   const handleSearch = () => {
     console.log("calling");
@@ -54,10 +38,8 @@ const Search = () => {
         const docsData = data?.data?.docs;
 
         setSearchData(docsData);
-        setFirstSearch(false)
+        setFirstSearch(false);
 
-        // setSearchData(data?.data?.docs)
-        // console.log(searchData);
       },
     });
   };
@@ -78,11 +60,11 @@ const Search = () => {
 
   const handleAddTags = (value: string) => {
     // if (event.key === "Enter") {
-      const newList = Array.from(tagsList);
-      if (value !== "") {
-        newList.push({ tagName: value, id: value });
-        setTagsList(newList);
-        setnewTag("");
+    const newList = Array.from(tagsList);
+    if (value !== "") {
+      newList.push({ tagName: value, id: value });
+      setTagsList(newList);
+      setnewTag("");
       // }
     }
   };
@@ -99,45 +81,29 @@ const Search = () => {
           <div className={styles.search_box}>
             <h5>Search </h5>
             <div className={styles.input_section}>
-              {/* <input
-                onChange={(event) => {
-                  setnewTag(event.target.value);
-                }}
-                value={newTag}
-                className={styles.input_field}
-                placeholder="Search Tags"
-                onKeyDown={handleAddTags}
-              ></input> */}
               <AutoComplete
-               style={{width: "80%"}}
-               placeholder= "Search Tags"
-              options={getautoComplete}
-              filterOption={true}
-              onKeyDown={(event)=>{
-                if (event.key === "Enter") {
-                  const newList = Array.from(tagsList);
-                  if (newTag !== "") {
-                    newList.push({ tagName: newTag, id: newTag });
-                    setTagsList(newList);
-                    setnewTag("");
+                style={{ width: "80%" }}
+                placeholder="Search Tags"
+                options={getautoComplete}
+                filterOption={true}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    const newList = Array.from(tagsList);
+                    if (newTag !== "") {
+                      newList.push({ tagName: newTag, id: newTag });
+                      setTagsList(newList);
+                      setnewTag("");
+                    }
                   }
-              }}
-            }
-              onSelect = {
-                (value) => {
-                  
-                  handleAddTags(value)
+                }}
+                onSelect={(value) => {
+                  handleAddTags(value);
                   setnewTag("");
-                }
-              }
-              onSearch = {
-                (value) => {
-                  
-                  setnewTag(value)
-                  
-                }
-              }
-               />
+                }}
+                onSearch={(value) => {
+                  setnewTag(value);
+                }}
+              />
               <IoIosOptions
                 title="Advance Search Options"
                 // onClick={() => {
@@ -210,15 +176,9 @@ const Search = () => {
         </div>
         {firstSearch ? (
           <div className={styles.results_container}>information</div>
-        ) :
-        searchData.length === 0 ? (
-          
-          <div className={styles.results_container}>
-            oops no data
-          </div>
-        ):
-        (
-          
+        ) : searchData.length === 0 ? (
+          <div className={styles.results_container}>oops no data</div>
+        ) : (
           <div className={styles.results_container}>
             <h3>Your Searches</h3>
 

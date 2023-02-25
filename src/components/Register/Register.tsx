@@ -135,7 +135,7 @@ const Register = ({ state }: registerProps) => {
         </Form>
       </div>
       <p>
-        don't have an account?{" "}
+        Already have an account?{" "}
         <span
           onClick={() => {
             state("Login");

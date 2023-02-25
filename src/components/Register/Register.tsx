@@ -2,15 +2,19 @@ import React from "react";
 import styles from "./register.module.scss";
 import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, Upload } from "antd";
-
-
+import { useRegisterUser } from "../../api/userService";
 
 const Register = () => {
 
-
+  const { isLoading, isSuccess, isError, error, handleRegister } = useRegisterUser();
 
   const onFinish = (values: any) => {
-    console.log("Success:", values);
+    console.log(values);
+    
+    handleRegister({
+      ...values,
+     
+    })
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -27,7 +31,7 @@ const Register = () => {
 
   return (
     <div className={styles.parentContainer}>
-      <h1>Welcome to E-Faisla</h1>
+      <h1>Welcome to NirNayaaK</h1>
       <h3>Enter Your Credentials to Register</h3>
 
       <div className={styles.loginForm}>
@@ -66,7 +70,17 @@ const Register = () => {
             name="designation"
             labelAlign="left"
             rules={[
-              { type: "email", message: "Enter Vaild Email" },
+              { required: true, message: "Please Enter your Designation" },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="LicenseID"
+            name="licenseID"
+            labelAlign="left"
+            rules={[
               { required: true, message: "Please Enter your Designation" },
             ]}
           >

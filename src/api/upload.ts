@@ -1,13 +1,8 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import api, { authHeader , apiML } from "./index";
+import api, { authHeader } from "./index";
 
 export const FetchSearchQuery = () => {
   return useMutation((tags: string[]) => {
-
-    const data = {
-      search_key : tags
-    }
-
-    return apiML.post("/search", data);
+    return api.post("/search", tags);
   });
 };

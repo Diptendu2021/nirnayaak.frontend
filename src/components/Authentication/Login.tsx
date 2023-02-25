@@ -51,10 +51,10 @@ const Login = ({state} : loginprops) => {
           autoComplete="off"
         >
           <Form.Item
-            label="Email"
-            name="email"
+            label="Contact No"
+            name="mobile"
             labelAlign="left"
-            rules={[{type : "email"},{ required: true, message: "Please input your username!" }]}
+            rules={[{ required: true, message: "Please Enter your Email" }]}
           >
             <Input />
           </Form.Item>

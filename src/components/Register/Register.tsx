@@ -61,8 +61,8 @@ const Register = ({ state }: registerProps) => {
             <Input />
           </Form.Item>
           <Form.Item
-            label="Email"
-            name="email"
+            label="Contact No"
+            name="mobile"
             labelAlign="left"
             rules={[{ required: true, message: "Please Enter your Email" }]}
           >

@@ -84,7 +84,8 @@ const UploadPDF = () => {
 
   return (
     <div className={styles.parentContainer}>
-      <Dragger {...props}>
+      <h3>Upload Document</h3>
+      <Dragger style={{height: "500px"}} {...props}>
         <p className="ant-upload-drag-icon">
           <InboxOutlined />
         </p>

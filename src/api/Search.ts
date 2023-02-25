@@ -23,3 +23,12 @@ export const AutomaticQuery = () => {
     return apiML.post("/search", data);
   });
 };
+
+export const SearchIndividualQuery = (documentID : string) => {
+    const {data , isLoading , isError} = useQuery([`/fetch/${documentID}`]   , async () => {
+      const res: any = await api.get(`/fetch/${documentID}`, authHeader());
+      console.log(res);
+      
+      return res;
+    },)
+}

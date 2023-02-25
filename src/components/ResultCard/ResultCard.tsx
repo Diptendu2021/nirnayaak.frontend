@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router";
 import styles from "./ResultCard.module.scss";
 
 type resultCardProps = {
@@ -6,6 +7,9 @@ type resultCardProps = {
 };
 
 const ResultCard = (props: resultCardProps) => {
+  
+  const Navigate = useNavigate()
+
   return (
     <div className={styles.resultCardContainer}>
       <div className={styles.heading}>Case -1</div>
@@ -32,7 +36,9 @@ const ResultCard = (props: resultCardProps) => {
           </div>
         )}
       </div>
-      <button className={styles.button}> More Information</button>
+      <button onClick={() => {
+        Navigate(`/document/${props.data._id}`)
+      }} className={styles.button}> More Information</button>
     </div>
   );
 };

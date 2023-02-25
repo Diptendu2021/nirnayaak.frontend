@@ -26,9 +26,30 @@ export const AutomaticQuery = () => {
 
 export const SearchIndividualQuery = (documentID : string) => {
     const {data , isLoading , isError} = useQuery([`/fetch/${documentID}`]   , async () => {
-      const res: any = await api.get(`/fetch/${documentID}`, authHeader());
+      const res: any = await api.get(`/fetch/${documentID}`);
       console.log(res);
       
       return res;
     },)
+}
+
+export const AutoCompleteQuery = () => {
+  const {data : datas , isLoading , isError} = useQuery([`autocomplete`]   , async () => {
+    const res: any = await apiML.get(`/autocomplete?limit=1000&sort=True`);
+    
+    
+    return res;
+  },)
+
+  console.log(datas);
+  
+
+  const newArray = datas?.data?.keywords.map((data: string , index: number) => {
+    return {
+      label: data,
+      value : data
+    }
+  })
+
+  return newArray
 }

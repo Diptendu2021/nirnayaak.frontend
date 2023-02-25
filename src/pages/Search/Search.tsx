@@ -3,14 +3,31 @@ import styles from "./Search.module.scss";
 import { RxCross2 } from "react-icons/rx";
 import { Draggable, DragDropContext, Droppable } from "react-beautiful-dnd";
 import { IoIosAdd, IoIosOptions } from "react-icons/io";
-import { FetchSearchQuery } from "../../api/Search";
+import { FetchSearchQuery , AutoCompleteQuery } from "../../api/Search";
 import SearchResults from "../../components/SearchResults/SearchResults";
 import ResultCard from "../../components/ResultCard/ResultCard";
+import { AutoComplete } from 'antd';
 
 type tag = {
   tagName: string;
   id: string;
 };
+
+const options : { label: string; value: string; }[] = [
+  {
+    label: "medical",
+    value: "medical"
+  },
+  {
+    label: "marraige",
+    value: "marraige"
+  },
+  {
+    label: "section-48",
+    value: "section-48"
+  },
+  
+]
 
 const Search = () => {
   const [tagsList, setTagsList] = React.useState<tag[]>([]);
@@ -18,6 +35,7 @@ const Search = () => {
   const [searchData, setSearchData] = React.useState([]);
   const [firstSearch, setFirstSearch] = React.useState(true);
   const fetchResult = FetchSearchQuery();
+  const getautoComplete = AutoCompleteQuery()
 
   const handleSearch = () => {
     console.log("calling");
@@ -58,14 +76,14 @@ const Search = () => {
     setTagsList(newList);
   };
 
-  const handleAddTags = (event: any) => {
-    if (event.key === "Enter") {
+  const handleAddTags = (value: string) => {
+    // if (event.key === "Enter") {
       const newList = Array.from(tagsList);
-      if (newTag !== "") {
-        newList.push({ tagName: newTag, id: newTag });
+      if (value !== "") {
+        newList.push({ tagName: value, id: value });
         setTagsList(newList);
         setnewTag("");
-      }
+      // }
     }
   };
 
@@ -81,7 +99,7 @@ const Search = () => {
           <div className={styles.search_box}>
             <h5>Search </h5>
             <div className={styles.input_section}>
-              <input
+              {/* <input
                 onChange={(event) => {
                   setnewTag(event.target.value);
                 }}
@@ -89,7 +107,37 @@ const Search = () => {
                 className={styles.input_field}
                 placeholder="Search Tags"
                 onKeyDown={handleAddTags}
-              ></input>
+              ></input> */}
+              <AutoComplete
+               style={{width: "80%"}}
+               placeholder= "Search Tags"
+              options={getautoComplete}
+              filterOption={true}
+              onKeyDown={(event)=>{
+                if (event.key === "Enter") {
+                  const newList = Array.from(tagsList);
+                  if (newTag !== "") {
+                    newList.push({ tagName: newTag, id: newTag });
+                    setTagsList(newList);
+                    setnewTag("");
+                  }
+              }}
+            }
+              onSelect = {
+                (value) => {
+                  
+                  handleAddTags(value)
+                  setnewTag("");
+                }
+              }
+              onSearch = {
+                (value) => {
+                  
+                  setnewTag(value)
+                  
+                }
+              }
+               />
               <IoIosOptions
                 title="Advance Search Options"
                 // onClick={() => {
@@ -99,7 +147,7 @@ const Search = () => {
                   backgroundColor: "rgb(220, 220, 220)",
                   fontSize: "1.2rem",
                   borderRadius: "25px",
-                  padding: "0.7rem",
+                  padding: "0.5rem",
                   color: "blue",
                   cursor: "pointer",
                 }}

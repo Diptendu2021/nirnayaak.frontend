@@ -8,6 +8,8 @@ type resultCardProps = {
 };
 
 const ResultCard = (props: resultCardProps) => {
+ 
+  
   console.log("props data" , props);
   
   const Navigate = useNavigate();
@@ -20,7 +22,7 @@ const ResultCard = (props: resultCardProps) => {
         <p>{props.data?.court}</p>
       </div>
       <div className={styles.summary}>
-        {props.data?.summary.substring(0, 500)}...
+        {props.data?.summary.substring(0, 400)}...
       </div>
       <div className={styles.relatedTags}>
         <div className={styles.tagHeading}>Related Tags:</div>

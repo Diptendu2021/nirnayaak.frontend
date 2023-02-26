@@ -204,9 +204,11 @@ const Search = () => {
         ) : firstSearch ? (
           <div className={styles.results_container}>
             <div className={styles.information}>
+              <div className={styles.information_center}>
               Welcome to Nirnayaak, you can type keywords or sentences in the
-              search bar and recieve similar documents in return. Press ENTER to
+              search bar and recieve similar documents in return. Press <span>ENTER</span>  to
               add keywords or sentences.
+              </div>
             </div>
           </div>
         ) : searchData.length === 0 ? (

@@ -5,6 +5,7 @@ import styles from "./User.module.scss";
 import UploadPDF from "../../components/UploadPDF/UploadPDF";
 import Submissions from "../../components/Submissions/Submissions";
 import { Navigate, redirect, useNavigate } from "react-router";
+import { FetchMySubmission } from "../../api/upload";
 
 const onChange = (key: string) => {
   console.log(key);
@@ -27,19 +28,26 @@ const User = () => {
   const localStorageLicenseKey = localStorage.getItem("LicenseKey");
   console.log(localStorageLicenseKey);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   if (localStorageLicenseKey === null) {
     return <Navigate to="/authentication" />;
   }
 
+  
+
+
   return (
     <div className={styles.parentContainer}>
       <div className={styles.top}>
-        <button onClick={() => {
-          localStorage.removeItem("LicenseKey");
-          navigate("/authentication")
-        }} >Logout</button>
+        <button
+          onClick={() => {
+            localStorage.removeItem("LicenseKey");
+            navigate("/authentication");
+          }}
+        >
+          Logout
+        </button>
       </div>
       <div className={styles.bottom}>
         <UploadPDF></UploadPDF>

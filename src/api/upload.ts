@@ -11,3 +11,24 @@ export const FetchSearchQuery = () => {
   });
 };
 
+export const FetchMySubmission = () => {
+  return useMutation((licenseID: string) => {
+    const data = {
+      licenseID : licenseID,
+      
+    }
+    return apiML.post("/alldocuments",data );
+  });
+};
+
+// export const FetchMySubmission = (licenseID: string | null) => {
+//   const {isLoading , isError , data : datas} = useQuery([`fetchSubmission ${licenseID}`],async() => {
+//     const res: any = await api.get(`/fetch/${licenseID}`);
+      
+      
+//       return res;
+//   } )
+
+//   return datas
+// }
+

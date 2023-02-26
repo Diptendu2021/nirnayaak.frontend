@@ -10,4 +10,10 @@
     height: 100%;
     padding-right: 1rem ;
     border-right: 1px solid $secondary;
+
+    :global(.ant-upload-wrapper .ant-upload-drag) {
+        height: 90%;
+      }
+    
+
 }

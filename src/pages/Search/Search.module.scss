@@ -1,4 +1,6 @@
 @use "../../styles/variables.scss" as *;
+@import url('https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap');
+
 
 .parentContainer {
   display: flex;
@@ -7,6 +9,15 @@
   flex-direction: column;
   height: 100vh;
   width: 100%;
+
+  .heading-n{
+    align-items: center;
+  }
+
+  h1{
+    font-family: 'Tilt Warp', cursive;
+    margin-bottom: 0;
+  }
 
   .top {
     width: 100%;
@@ -76,7 +87,7 @@
       flex-direction: column;
 
       .search_box {
-        height: 22%;
+        height: 32%;
         width: 100%;
         box-sizing: border-box;
         padding: 0 1rem 1rem 1rem;
@@ -132,7 +143,7 @@
       }
       .tag_container {
         width: 100%;
-        height: 77%;
+        height: 67%;
         display: flex;
         justify-content: flex-start;
         align-items: center;

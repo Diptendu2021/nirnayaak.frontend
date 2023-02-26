@@ -2,6 +2,9 @@ import React from "react";
 import { redirect, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import styles from "./ResultCard.module.scss";
+import { BsFillFilePdfFill } from "react-icons/bs";
+import { BiInfoCircle } from "react-icons/bi";
+
 
 type resultCardProps = {
   data: any;
@@ -56,6 +59,7 @@ const ResultCard = (props: resultCardProps) => {
           className={styles.button}
         >
           {" "}
+          <BiInfoCircle style={{fontSize: "1rem" , marginRight: "0.5rem"}} />
           More Information
         </button>
         <Link className={styles.link} to={props.data.documents[0].url} target="_blank">
@@ -67,6 +71,7 @@ const ResultCard = (props: resultCardProps) => {
           // }}
           className={styles.button}
         >
+          <BsFillFilePdfFill style={{fontSize: "1rem" , marginRight: "0.5rem"}} />
           Show PDF
         </button>
         </Link>

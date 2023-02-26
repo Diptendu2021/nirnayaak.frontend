@@ -38,6 +38,10 @@ const User = () => {
   return (
     <div className={styles.parentContainer}>
       <div className={styles.top}>
+        <img
+          style={{ width: "30px", marginRight: "2rem" }}
+          src={process.env.PUBLIC_URL + "/images/Logo.png"}
+        />
         <div className={styles.navButtons}>
           <Link className={styles.navButtonsLinks} to={"/search"}>
             Search Tags

@@ -24,15 +24,15 @@ const Search = () => {
   const [loader, setLoader] = React.useState(false);
   const fetchResult = FetchSearchQuery();
   const getautoComplete = AutoCompleteQuery();
-  const delay = (ms:any) => new Promise(res => setTimeout(res, ms));
+  const delay = (ms: any) => new Promise((res) => setTimeout(res, ms));
 
   const licenseID = localStorage.getItem("LicenseKey");
 
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    setLoader(true);    
-          
+    setLoader(true);
+
     const newArray: string[] = [];
     tagsList.map((tags, index) => {
       newArray.push(tags.tagName);
@@ -49,8 +49,8 @@ const Search = () => {
         setSearchData(docsData);
         setTimeout(() => {
           setLoader(false);
-        }, 5000)
-        
+        }, 2000);
+
         setFirstSearch(false);
       },
     });
@@ -88,11 +88,18 @@ const Search = () => {
   return (
     <div className={styles.parentContainer}>
       <div className={styles.top}>
-
-<div className={styles.navButtons}>
-    <Link className={styles.navButtonsLinks} to={"/user"}>Upload</Link>
-    <Link className={styles.navButtonsLinks} to={"/judgementsearch"}>Suggest Actions</Link>
-</div>
+      <img
+              style={{ width: "30px", marginRight: "2rem" }}
+              src={process.env.PUBLIC_URL + "/images/Logo.png"}
+            />
+        <div className={styles.navButtons}>
+          <Link className={styles.navButtonsLinks} to={"/user"}>
+            Upload
+          </Link>
+          <Link className={styles.navButtonsLinks} to={"/judgementsearch"}>
+            Suggest Actions
+          </Link>
+        </div>
 
         {licenseID !== null && (
           <div className={styles.top_left}>
@@ -114,6 +121,7 @@ const Search = () => {
       <div className={styles.bottom}>
         <div className={styles.search_container}>
           <div className={styles.search_box}>
+          <h1 className='heading-n'>nirnayaak</h1>
             <h5>Search </h5>
             <div className={styles.input_section}>
               <AutoComplete
@@ -210,14 +218,16 @@ const Search = () => {
           </div>
         </div>
         {loader ? (
-          <div className={styles.results_container}><Loader /></div>
+          <div className={styles.results_container}>
+            <Loader />
+          </div>
         ) : firstSearch ? (
           <div className={styles.results_container}>
             <div className={styles.information}>
               <div className={styles.information_center}>
-              Welcome to Nirnayaak, you can type keywords or sentences in the
-              search bar and recieve similar documents in return. Press <span>ENTER</span>  to
-              add keywords or sentences.
+                Welcome to Nirnayaak, you can type keywords or sentences in the
+                search bar and recieve similar documents in return. Press{" "}
+                <span>ENTER</span> to add keywords or sentences.
               </div>
             </div>
           </div>
@@ -225,7 +235,7 @@ const Search = () => {
           <div className={styles.results_container}>oops no data</div>
         ) : (
           <div className={styles.results_container}>
-            <h3>Your Searches</h3>
+            <h3>Your Search Results</h3>
 
             <div className={styles.results}>
               {searchData.map((data, index) => {

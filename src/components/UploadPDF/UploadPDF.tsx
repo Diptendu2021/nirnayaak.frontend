@@ -12,7 +12,7 @@ import {
 
 import styles from "./UploadPDF.module.scss";
 import Dragger from "antd/es/upload/Dragger";
-import { FetchSearchQuery } from "../../api/upload";
+import { FetchMySubmission, FetchSearchQuery } from "../../api/upload";
 
 const submitType = {
   upload: "upload",
@@ -27,6 +27,7 @@ const UploadPDF = () => {
 
   const preprocessquery = FetchSearchQuery();
   const licenseID = localStorage.getItem("LicenseKey")
+  const fetchSubmisson = FetchMySubmission();
 
   const onFinish = (values: any) => {
     console.log("Success:", values);
@@ -36,6 +37,7 @@ const UploadPDF = () => {
     preprocessquery.mutateAsync(documentId, {
       onSuccess(response) {
         message.success(`file Processed successfully.`);
+        window.location.reload();
       },
       onError(response) {
         message.error(`Failed processing file.`);

@@ -12,7 +12,7 @@ const ResultCard = (props: resultCardProps) => {
 
   return (
     <div className={styles.resultCardContainer}>
-      <div className={styles.heading}>Case -1</div>
+      <div className={styles.heading}>{props.data?.title}</div>
       <div className={styles.summary}>{props.data?.summary.substring(0 , 500)}...</div>
       <div className={styles.relatedTags}>
         <div className={styles.tagHeading}>Related Tags:</div>

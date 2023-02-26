@@ -7,6 +7,7 @@ import { FetchSearchQuery, AutoCompleteQuery } from "../../api/Search";
 import SearchResults from "../../components/SearchResults/SearchResults";
 import ResultCard from "../../components/ResultCard/ResultCard";
 import { AutoComplete } from "antd";
+import Loader from "../../components/Loader/Loader";
 
 type tag = {
   tagName: string;
@@ -18,6 +19,7 @@ const Search = () => {
   const [newTag, setnewTag] = React.useState("");
   const [searchData, setSearchData] = React.useState([]);
   const [firstSearch, setFirstSearch] = React.useState(true);
+  const [loader, setLoader] = React.useState(false);
   const fetchResult = FetchSearchQuery();
   const getautoComplete = AutoCompleteQuery();
 
@@ -38,6 +40,7 @@ const Search = () => {
         const docsData = data?.data?.docs;
 
         setSearchData(docsData);
+        setLoader(false);
         setFirstSearch(false);
 
       },
@@ -174,21 +177,25 @@ const Search = () => {
             </DragDropContext>
           </div>
         </div>
-        {firstSearch ? (
-          <div className={styles.results_container}>information</div>
-        ) : searchData.length === 0 ? (
-          <div className={styles.results_container}>oops no data</div>
+        {loader ? (
+          <Loader />
         ) : (
-          <div className={styles.results_container}>
-            <h3>Your Searches</h3>
+        firstSearch ? (
+            <div className={styles.results_container}>information</div>
+          ) : searchData.length === 0 ? (
+            <div className={styles.results_container}>oops no data</div>
+          ) : (
+            <div className={styles.results_container}>
+              <h3>Your Searches</h3>
 
-            <div className={styles.results}>
-              {searchData.map((data, index) => {
-                return <ResultCard key={index} data={data} />;
-              })}
+              <div className={styles.results}>
+                {searchData.map((data, index) => {
+                  return <ResultCard key={index} data={data} />;
+                })}
+              </div>
             </div>
-          </div>
-        )}
+          )
+          )}
         {/* <div className={styles.results_container}>
          
           <h3>Your Searches</h3>

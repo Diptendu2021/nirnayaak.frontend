@@ -24,6 +24,7 @@ const Search = () => {
   const getautoComplete = AutoCompleteQuery();
 
   const handleSearch = () => {
+    setLoader(true);
     console.log("calling");
 
     const newArray: string[] = [];

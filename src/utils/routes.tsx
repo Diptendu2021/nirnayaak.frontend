@@ -4,6 +4,7 @@ import IndividualSearchPage from "../pages/IndividualSearchPage/IndividualSearch
 import Main from "../pages/Main";
 import Search from "../pages/Search/Search";
 import User from "../pages/User/User";
+import JudgementSearch from "../pages/judgmentSearch/judgmentSearch";
 
 const routes : RouteObject[] = [
     {
@@ -26,7 +27,12 @@ const routes : RouteObject[] = [
     {
         path : "/document/:documentID",
         element: <IndividualSearchPage />
+    },
+    {
+        path: "/judgementsearch",
+        element: <JudgementSearch/>
     }
+
 
 ]
 

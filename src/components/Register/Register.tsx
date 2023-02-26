@@ -3,6 +3,7 @@ import styles from "./register.module.scss";
 import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, Upload } from "antd";
 import { useRegisterUser } from "../../api/userService";
+import { Navigate } from "react-router";
 
 type registerProps = {
   state: any;
@@ -11,6 +12,12 @@ type registerProps = {
 const Register = ({ state }: registerProps) => {
   const { isLoading, isSuccess, isError, error, handleRegister } =
     useRegisterUser();
+
+    const token = localStorage.getItem("LicenseKey")
+
+    if(token !== null){
+      return <Navigate to="/search" />;
+    }
 
   const onFinish = (values: any) => {
     console.log(values);

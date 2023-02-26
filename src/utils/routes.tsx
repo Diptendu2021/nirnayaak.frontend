@@ -22,6 +22,10 @@ const routes : RouteObject[] = [
     {
         path : "/authentication",
         element: <Authentication />
+    },
+    {
+        path : "/",
+        element: <Authentication />
     }
     ,
     {

@@ -2,28 +2,37 @@ import React from "react";
 import styles from "./Login.module.scss";
 import { Button, Checkbox, Form, Input, message } from "antd";
 import { useLoginQuery } from "../../api/userService";
+import { Navigate } from "react-router";
 
 type loginprops = {
-  state : any
-}
+  state: any;
+};
 
-const Login = ({state} : loginprops) => {
-  
-  const loginUser = useLoginQuery()
+const Login = ({ state }: loginprops) => {
+  const loginUser = useLoginQuery();
+
+  const token = localStorage.getItem("LicenseKey");
+
+  if (token !== null) {
+    return <Navigate to="/search" />;
+  }
 
   const onFinish = (values: any) => {
-    loginUser.mutateAsync({
-      ...values
-    }, {
-      onSuccess(res){
-        message.success("Sucessfully Logged in")
+    loginUser.mutateAsync(
+      {
+        ...values,
       },
-      onError(res) {
-        console.log(res);
-        
-        message.error("Use Valid Credentials")
+      {
+        onSuccess(res) {
+          message.success("Sucessfully Logged in");
+        },
+        onError(res) {
+          console.log(res);
+
+          message.error("Use Valid Credentials");
+        },
       }
-    })
+    );
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -76,9 +85,13 @@ const Login = ({state} : loginprops) => {
         </Form>
       </div>
       <p>
-        don't have an account? <span onClick={() => {
-          state("Register")
-        }} style={{color : "rgb(125, 189, 246)"}}>
+        don't have an account?{" "}
+        <span
+          onClick={() => {
+            state("Register");
+          }}
+          style={{ color: "rgb(125, 189, 246)" }}
+        >
           Register Here
         </span>
       </p>

@@ -23,15 +23,15 @@ const Search = () => {
   const [loader, setLoader] = React.useState(false);
   const fetchResult = FetchSearchQuery();
   const getautoComplete = AutoCompleteQuery();
+  const delay = (ms:any) => new Promise(res => setTimeout(res, ms));
 
   const licenseID = localStorage.getItem("LicenseKey");
 
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    setLoader(true);
-    console.log("calling");
-
+    setLoader(true);    
+          
     const newArray: string[] = [];
     tagsList.map((tags, index) => {
       newArray.push(tags.tagName);
@@ -46,7 +46,10 @@ const Search = () => {
         const docsData = data?.data?.docs;
 
         setSearchData(docsData);
-        setLoader(false);
+        setTimeout(() => {
+          setLoader(false);
+        }, 5000)
+        
         setFirstSearch(false);
       },
     });
@@ -200,7 +203,7 @@ const Search = () => {
           </div>
         </div>
         {loader ? (
-          <Loader />
+          <div className={styles.results_container}><Loader /></div>
         ) : firstSearch ? (
           <div className={styles.results_container}>
             <div className={styles.information}>

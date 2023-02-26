@@ -19,9 +19,10 @@ const suffix = (
 
 
 const JudgementSearch = () => {
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);    
   const [gptText, setGptText] = React.useState('');
   const [searchData, setSearchData] = React.useState([]);
+  const [dataFetch, setDataFetch] = React.useState(false);
   const fetchResult = FetchSearchQuery2();
 
 
@@ -34,6 +35,7 @@ const JudgementSearch = () => {
         const docsData = data?.data?.docs;
         setGptText(data?.data?.gpt_res);
         setSearchData(docsData);      
+        setDataFetch(true);
         setLoading(false);
       },
     });
@@ -53,29 +55,37 @@ const JudgementSearch = () => {
             onSearch={onSearch}
             loading={loading}                    
           />
-        </div>              
-    </div>
-        <div className='gpt-response'>
-          <h3>Response from GPT-3</h3>
-          <p>{gptText}</p>
-        </div>
-        {loading ? (
+        </div>                  
+        {loading?(
           <Loader />
-        ) :  searchData.length === 0 ? (
-            <div className={styles.results_container}>oops no data</div>
-          ) : (
-            <div className={styles.results_container}>
-              <h3>Your Searches</h3>
+        ):
+          dataFetch ? (                  
+            <div className='gpt-response'>
+            <h3>
+              Your suggestion:
+            </h3>
+              <p>{gptText}</p>
+            </div>          
+          ): null
+        }
+        {
+        dataFetch?              
+          searchData.length === 0 ? (
+              <div className={styles.results_container}>No related content found</div>
+            ) : (
+              <div className={styles.results_container}>
+                <h3>Your Searches</h3>
 
-              <div className={styles.results}>
-                {searchData.map((data, index) => {
-                  return <ResultCard key={index} data={data} />;
-                })}
+                <div className={styles.results}>
+                  {searchData.map((data, index) => {
+                    return <ResultCard key={index} data={data} />;
+                  })}
+                </div>
               </div>
-            </div>
-          )
-          
+            )
+          : null          
           }
+    </div>
     </>
   )
 }

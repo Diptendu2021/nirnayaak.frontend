@@ -40,14 +40,20 @@ const User = () => {
   return (
     <div className={styles.parentContainer}>
       <div className={styles.top}>
-        <button
-          onClick={() => {
-            localStorage.removeItem("LicenseKey");
-            navigate("/authentication");
-          }}
-        >
-          Logout
-        </button>
+      <div className={styles.top_left}>
+            <button
+              onClick={() => {
+                localStorage.removeItem("LicenseKey");
+                navigate("/authentication");
+              }}
+            >
+              Logout
+            </button>
+            <img
+              style={{ width: "40px", marginRight: "2rem" }}
+              src={process.env.PUBLIC_URL + "/images/avataaars.png"}
+            />
+          </div>
       </div>
       <div className={styles.bottom}>
         <UploadPDF></UploadPDF>

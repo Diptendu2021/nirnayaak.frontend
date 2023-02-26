@@ -1,4 +1,5 @@
 @use "../../styles/variables.scss" as * ;
+@import url('https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap');
 
 .parentContainer{
     display: flex;
@@ -15,6 +16,10 @@
 
     h1{
         font-size: $text-h1;
+
+        span{
+            font-family: 'Tilt Warp', cursive;
+        }
     }
 
     h3{

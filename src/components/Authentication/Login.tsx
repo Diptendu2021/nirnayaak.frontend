@@ -41,7 +41,7 @@ const Login = ({ state }: loginprops) => {
 
   return (
     <div className={styles.parentContainer}>
-      <h1>Welcome to NirNayaaK</h1>
+      <h1>Welcome to <span>nirnayaak</span></h1>
       <h3>Login into your account by entering your credentials</h3>
 
       <div className={styles.loginForm}>

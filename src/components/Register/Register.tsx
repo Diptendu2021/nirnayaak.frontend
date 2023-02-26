@@ -41,7 +41,7 @@ const Register = ({ state }: registerProps) => {
 
   return (
     <div className={styles.parentContainer}>
-      <h1>Welcome to NirNayaaK</h1>
+      <h1>Welcome to <span>nirnayaak</span></h1>
       <h3>Enter Your Credentials to Register</h3>
 
       <div className={styles.loginForm}>

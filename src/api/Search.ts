@@ -12,6 +12,17 @@ export const FetchSearchQuery = () => {
   });
 };
 
+export const FetchSearchQuery2 = () => {
+  return useMutation((value: string) => {
+
+    const data = {
+      search_key : value
+    }
+
+    return apiML.post("/search", data);
+  });
+};
+
 
 export const AutomaticQuery = () => {
   return useMutation((tags: string[]) => {

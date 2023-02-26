@@ -29,6 +29,7 @@ const Search = () => {
   const navigate = useNavigate();
 
   const handleSearch = () => {
+    setLoader(true);
     console.log("calling");
 
     const newArray: string[] = [];

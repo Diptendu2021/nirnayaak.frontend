@@ -12,6 +12,23 @@
     align-items: center;
     padding: 0 1rem;
 
+    .navButtons {
+      .navButtonsLinks {
+        text-decoration: none;
+        font-size: 0.8rem;
+        color: white;
+
+        padding: 0.5rem 0.8rem;
+        transition: 0.2s ease-in;
+        border-radius: 6px;
+
+        &:hover{
+          background-color:#012f9987;
+
+        }
+      }
+    }
+
     .top_left{
       display: flex;
       justify-content: center;
@@ -22,6 +39,7 @@
         border-radius: 6px;
         background-color: $accent;
         margin-right: 1rem ;
+        cursor: pointer;
       }
     }
 

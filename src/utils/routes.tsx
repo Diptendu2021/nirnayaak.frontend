@@ -16,7 +16,7 @@ const routes : RouteObject[] = [
     //     element : <Authentication />
     // },
     {
-        path: "/",
+        path: "/search",
         element : <Search />
     },
     {

@@ -9,6 +9,7 @@ import ResultCard from "../../components/ResultCard/ResultCard";
 import { AutoComplete } from "antd";
 import Loader from "../../components/Loader/Loader";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 type tag = {
   tagName: string;
@@ -84,6 +85,12 @@ const Search = () => {
   return (
     <div className={styles.parentContainer}>
       <div className={styles.top}>
+
+<div className={styles.navButtons}>
+    <Link className={styles.navButtonsLinks} to={"/user"}>Upload</Link>
+    <Link className={styles.navButtonsLinks} to={"/judgementsearch"}>Suggest Actions</Link>
+</div>
+
         {licenseID !== null && (
           <div className={styles.top_left}>
             <button

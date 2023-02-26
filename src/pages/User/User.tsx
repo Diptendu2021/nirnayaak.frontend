@@ -6,6 +6,7 @@ import UploadPDF from "../../components/UploadPDF/UploadPDF";
 import Submissions from "../../components/Submissions/Submissions";
 import { Navigate, redirect, useNavigate } from "react-router";
 import { FetchMySubmission } from "../../api/upload";
+import { Link } from "react-router-dom";
 
 const onChange = (key: string) => {
   console.log(key);
@@ -34,26 +35,31 @@ const User = () => {
     return <Navigate to="/authentication" />;
   }
 
-  
-
-
   return (
     <div className={styles.parentContainer}>
       <div className={styles.top}>
-      <div className={styles.top_left}>
-            <button
-              onClick={() => {
-                localStorage.removeItem("LicenseKey");
-                navigate("/authentication");
-              }}
-            >
-              Logout
-            </button>
-            <img
-              style={{ width: "40px", marginRight: "2rem" }}
-              src={process.env.PUBLIC_URL + "/images/avataaars.png"}
-            />
-          </div>
+        <div className={styles.navButtons}>
+          <Link className={styles.navButtonsLinks} to={"/search"}>
+            Search Tags
+          </Link>
+          <Link className={styles.navButtonsLinks} to={"/judgementsearch"}>
+            Suggest Actions
+          </Link>
+        </div>
+        <div className={styles.top_left}>
+          <button
+            onClick={() => {
+              localStorage.removeItem("LicenseKey");
+              navigate("/authentication");
+            }}
+          >
+            Logout
+          </button>
+          <img
+            style={{ width: "40px", marginRight: "2rem" }}
+            src={process.env.PUBLIC_URL + "/images/avataaars.png"}
+          />
+        </div>
       </div>
       <div className={styles.bottom}>
         <UploadPDF></UploadPDF>

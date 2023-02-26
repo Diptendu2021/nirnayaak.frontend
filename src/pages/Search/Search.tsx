@@ -8,6 +8,7 @@ import SearchResults from "../../components/SearchResults/SearchResults";
 import ResultCard from "../../components/ResultCard/ResultCard";
 import { AutoComplete } from "antd";
 import Loader from "../../components/Loader/Loader";
+import { useNavigate } from "react-router";
 
 type tag = {
   tagName: string;
@@ -22,6 +23,10 @@ const Search = () => {
   const [loader, setLoader] = React.useState(false);
   const fetchResult = FetchSearchQuery();
   const getautoComplete = AutoCompleteQuery();
+
+  const licenseID = localStorage.getItem("LicenseKey");
+
+  const navigate = useNavigate();
 
   const handleSearch = () => {
     console.log("calling");
@@ -42,7 +47,6 @@ const Search = () => {
         setSearchData(docsData);
         setLoader(false);
         setFirstSearch(false);
-
       },
     });
   };
@@ -78,7 +82,24 @@ const Search = () => {
 
   return (
     <div className={styles.parentContainer}>
-      <div className={styles.top}></div>
+      <div className={styles.top}>
+        {licenseID !== null && (
+          <div className={styles.top_left}>
+            <button
+              onClick={() => {
+                localStorage.removeItem("LicenseKey");
+                navigate("/authentication");
+              }}
+            >
+              Logout
+            </button>
+            <img
+              style={{ width: "40px", marginRight: "2rem" }}
+              src={process.env.PUBLIC_URL + "/images/avataaars.png"}
+            />
+          </div>
+        )}
+      </div>
       <div className={styles.bottom}>
         <div className={styles.search_container}>
           <div className={styles.search_box}>
@@ -179,23 +200,27 @@ const Search = () => {
         </div>
         {loader ? (
           <Loader />
-        ) : (
-        firstSearch ? (
-            <div className={styles.results_container}>information</div>
-          ) : searchData.length === 0 ? (
-            <div className={styles.results_container}>oops no data</div>
-          ) : (
-            <div className={styles.results_container}>
-              <h3>Your Searches</h3>
-
-              <div className={styles.results}>
-                {searchData.map((data, index) => {
-                  return <ResultCard key={index} data={data} />;
-                })}
-              </div>
+        ) : firstSearch ? (
+          <div className={styles.results_container}>
+            <div className={styles.information}>
+              Welcome to Nirnayaak, you can type keywords or sentences in the
+              search bar and recieve similar documents in return. Press ENTER to
+              add keywords or sentences.
             </div>
-          )
-          )}
+          </div>
+        ) : searchData.length === 0 ? (
+          <div className={styles.results_container}>oops no data</div>
+        ) : (
+          <div className={styles.results_container}>
+            <h3>Your Searches</h3>
+
+            <div className={styles.results}>
+              {searchData.map((data, index) => {
+                return <ResultCard key={index} data={data} />;
+              })}
+            </div>
+          </div>
+        )}
         {/* <div className={styles.results_container}>
          
           <h3>Your Searches</h3>

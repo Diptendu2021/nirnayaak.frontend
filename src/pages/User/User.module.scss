@@ -15,7 +15,12 @@
     button{
       padding: 0.5rem 1rem;
       border-radius: 6px;
-      
+      background-color: $accent;
+    }
+
+    img{
+      height: 30px;
+      width: 30px;
     }
   }
 

@@ -26,6 +26,7 @@ const UploadPDF = () => {
   const [documentId, setdocumentId] = React.useState("");
 
   const preprocessquery = FetchSearchQuery();
+  const licenseID = localStorage.getItem("LicenseKey")
 
   const onFinish = (values: any) => {
     console.log("Success:", values);
@@ -57,7 +58,7 @@ const UploadPDF = () => {
   const props: UploadProps = {
     name: "user_file",
     multiple: true,
-    action: "https://ml-backend.nirnayaak.co/upload",
+    action: `https://ml-backend.nirnayaak.co/upload?licenseID=${licenseID}`,
     onChange(info) {
       console.log(info);
 
@@ -85,7 +86,7 @@ const UploadPDF = () => {
   return (
     <div className={styles.parentContainer}>
       <h3>Upload Document</h3>
-      <Dragger style={{height: "500px"}} {...props}>
+      <Dragger style={{height: "400px"}} {...props}>
         <p className="ant-upload-drag-icon">
           <InboxOutlined />
         </p>

@@ -4,11 +4,13 @@ import { queryClient } from "../AppRoutes";
 export const API_URL = process.env.REACT_APP_API_BASE_URL
 
 const api: AxiosInstance = axios.create({
-    baseURL : "https://seashell-app-6ocli.ondigitalocean.app/",
+    // baseURL : "https://seashell-app-6ocli.ondigitalocean.app/",
+    baseURL : "http://localhost:3005/",
 })
 
 export const apiML: AxiosInstance = axios.create({
-  baseURL : "https://ml-backend.nirnayaak.co/",
+  // baseURL : "https://ml-backend.nirnayaak.co/",
+  baseURL : "http://65.2.39.170/",
 })
 
 export function authHeader() : object {
